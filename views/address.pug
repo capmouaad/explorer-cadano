@@ -1,0 +1,8 @@
+extends layout
+
+block content
+    h1.text-center AdaView
+    .container
+        form(method='POST', action='/address')
+        .col-sm-12
+            input.form-control(name='search', id='search' value=(address == '') ? '' : address)
