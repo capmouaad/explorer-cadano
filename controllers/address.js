@@ -10,7 +10,7 @@ exports.verify = (req, res) => {
             if (info.Left)
                 req.flash('errors', {msg: 'Invalid address'})
             else
-                req.flash('success', {msg: 'This is green valid address'})
+                req.flash('success', {msg: 'This is a valid ADA address'})
 
             return res.render('address', {
                 address: address,

@@ -7,4 +7,7 @@ block content
   .container
     form(method='POST', action='/address')
       .col-sm-12
-        input.form-control(name='search', id='search')
+        .input-group
+          input.form-control(name='search', id='search')
+          span.input-group-btn
+            button.btn.btn-primary(type='submit') Go!
