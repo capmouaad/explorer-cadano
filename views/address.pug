@@ -27,15 +27,28 @@ block content
                             small #{address}
                         p
                             small #{data.txNum}
+                        p
+                            small #{data.balance} ADA
         if data.txNum
         .row
+            br
             .col-sm-12
                 h5 Latest transaction history
             for tx in data.txns
-                .col-sm-8
+                .col-sm-6
                     p
                         small #{tx.id}
-                .col-sm-4
+                .col-sm-3
+                    p
+                        small
+                            span.label.label-success IN&nbsp;
+                        small #{tx.ins} ADA
+                    p
+                        small
+                            span.label.label-danger OUT&nbsp;
+                        small #{tx.outs} ADA
+                    br
+                .col-sm-3
                     p
                         small #{tx.dt}
 
