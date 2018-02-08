@@ -4,8 +4,38 @@ block content
     h1.text-center AdaView
     .container
     form(method='POST', action='/address')
-      .col-sm-12
-        .input-group
-            input.form-control(name='search', id='search' value=(address == '') ? '' : address)
-            span.input-group-btn
-                button.btn.btn-primary(type='submit') Go!
+    .row
+        .col-sm-12
+            .input-group
+                input.form-control(name='search', id='search' value=(address == '') ? '' : address)
+                span.input-group-btn
+                    button.btn.btn-primary(type='submit') Go!
+    .row
+        .col-sm-8
+            br
+            h5 Address
+            .row
+                .col-sm-4
+                    p
+                        small Address
+                    p
+                        small Transactions
+                    p
+                        small Final balance
+                .col-sm-8
+                    p
+                        small #{address}
+                    p
+                        small #{data.txNum}
+    if data.txNum
+    .row
+        h5 Latest transaction history
+        for tx in data.txns
+            .col-sm-8
+                p
+                    small #{tx.id}
+            .col-sm-4
+                p
+                    small #{tx.dt}
+
+

@@ -1,3 +1,4 @@
+const moment = require('moment')
 const cardano = require('cardano-api')
 
 exports.verify = (req, res) => {   
@@ -5,8 +6,21 @@ exports.verify = (req, res) => {
     address = address.trim()
 
     cardano.address({address})
-        .then(info =>  {
-            console.log(info)
+        .then(data =>  {
+            console.log(data)
+            data = data.Right
+            let info = {}
+            info.txNum = data.caTxNum
+            info.txns = []
+            data.caTxList.forEach((tx) => {
+                if (info.txns.length >= 2) return;
+                let transaction = {}
+                transaction.id = tx.ctbId
+                let datetime = moment(tx.ctbTimeIssued * 1000)
+                transaction.dt = datetime.format('LL')
+                info.txns.push(transaction)
+            })
+
             if (info.Left)
                 req.flash('errors', {msg: 'Invalid address'})
             else
@@ -17,7 +31,13 @@ exports.verify = (req, res) => {
                 data: info
             })
         })
-        .catch(err => console.log('err', err))
+        .catch(err => {
+            req.flash('errors', {msg: 'Something went wrong. Please try again later.'})
+            return res.render('address', {
+                address: address,
+                data: {}
+            })
+        })
 }
 exports.redirect = (req, res) => {
     return res.redirect('/address/' + req.body.search)
